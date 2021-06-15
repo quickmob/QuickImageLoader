@@ -28,7 +28,7 @@ android {
 }
 
 dependencies {
-    //框架依赖：其中latest.release指代最新版本号，也可以指定明确的版本号，例如1.0.0
+    //框架依赖：其中latest.release指代最新版本号，也可以指定明确的版本号，例如1.0.1
     implementation 'com.github.quickmob:QuickImageLoader:latest.release'
     //glide依赖
     implementation 'com.github.bumptech.glide:glide:4.12.0'
