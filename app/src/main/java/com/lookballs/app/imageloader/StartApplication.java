@@ -25,12 +25,17 @@ public class StartApplication extends Application {
     @Override
     public void onLowMemory() {
         super.onLowMemory();
-        GlideUtil.onLowMemory(StartApplication.this);
+        //内存低的时候清理Glide缓存
+        GlideUtil.onLowMemory(this);
     }
 
     @Override
     public void onTrimMemory(int level) {
         super.onTrimMemory(level);
-        GlideUtil.onTrimMemory(StartApplication.this, level);
+        //内存低的时候清理Glide缓存
+        if (level == TRIM_MEMORY_UI_HIDDEN) {
+            GlideUtil.onLowMemory(this);
+        }
+        GlideUtil.onTrimMemory(this, level);
     }
 }
