@@ -36,7 +36,7 @@ public class GlideImageStrategy implements ImageStrategy<ImageConfig> {
 
     @Override
     public void loadImage(@NonNull Object mContext, @NonNull ImageConfig config) {
-        if (mContext == null) return;
+        if (!GlideUtil.checkContext(mContext)) return;
 
         /************************************这是一条分割线开始************************************/
         RequestOptions requestOptions = new RequestOptions();

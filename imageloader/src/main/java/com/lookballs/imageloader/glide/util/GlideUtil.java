@@ -1,6 +1,9 @@
 package com.lookballs.imageloader.glide.util;
 
+import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
@@ -32,6 +35,27 @@ public class GlideUtil {
         } else {
             return Glide.with((Context) mContext);
         }
+    }
+
+    public static boolean checkContext(Object mContext) {
+        if (mContext == null) {
+            return false;
+        } else if (!(mContext instanceof Application)) {
+            if (mContext instanceof Activity) {
+                Activity activity = (Activity) mContext;
+                return !activity.isDestroyed();
+            } else if (mContext instanceof Fragment) {
+                Fragment fragment = (Fragment) mContext;
+                return fragment.getActivity() != null && !fragment.getActivity().isDestroyed();
+            } else if (mContext instanceof android.app.Fragment) {
+                android.app.Fragment fragment = (android.app.Fragment) mContext;
+                return fragment.getActivity() != null && !fragment.getActivity().isDestroyed();
+            } else if (mContext instanceof ContextWrapper
+                    && ((ContextWrapper) mContext).getBaseContext().getApplicationContext() != null) {
+                return checkContext(((ContextWrapper) mContext).getBaseContext());
+            }
+        }
+        return true;
     }
 
     /**
